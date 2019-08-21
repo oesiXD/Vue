@@ -6,7 +6,7 @@
     <link href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
     <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
 </head>
 
 <body>
@@ -28,7 +28,7 @@
 
 <div class=" jumbotron">
     <div class="container" style="max-width: 80%;">
-        <h2 style="color:Navy ">AnimeXD</h2>
+        <h2 style="color:Navy ">{{ titulo }}</h2>
         <p>Lo mas nuevo y actualizado para Otakus.</p>
         <a href="#">Ver mas</a>
     </div>
@@ -36,7 +36,7 @@
 
 <div class="row">
 
-<div class="col-2 .visible-xs-*">
+<div class="col-2 ">
 <menuderecha/>
 </div>
     <div class="col-8 texto">
@@ -61,6 +61,18 @@
 
             </div>
            
+        </div>
+
+        <div class="container cliente">
+
+        <cliente/>
+
+          <div class="col 1 anuncios"> 
+
+          <anuncios/>
+
+          </div>
+
         </div>
     </div>
 
@@ -102,14 +114,34 @@
 import Capitulos from '@/views/Capitulos.vue'
 import Menuderecha from '@/views/Menuderecha.vue'
 import Menuizquerda from '@/views/Menuizquerda.vue'
+import Cliente from '@/components/Cliente.vue'
+import Anuncios from '@/components/Anuncios.vue'
 export default {
-  components:{Capitulos,Menuderecha,Menuizquerda}
+  name:'App',
+  components: {Capitulos,Menuderecha,Menuizquerda,Cliente,Anuncios},
+ data() {
+   return{
+     titulo:'AnimeXD'
+   }
+
+ } 
 
 }
 </script>
 
 <style>
+.anuncios{
+margin: 10px;
+font-size: 2rem;
 
+border-top-color: #393c3d;
+border-top-width: 1px;
+border-top-style: solid;
+
+border-bottom-color: #393c3d;
+border-bottom-width: 1px;
+border-bottom-style: solid;
+}
 
 h2{
   font-size:0rem;
@@ -127,6 +159,17 @@ html{
 background-color: rgb(93, 144, 211);
 padding: 10px;
 color:azure;
+border-radius:  3px;
+width: 20%; 
+font-size:3rem;
+text-align: center;
+}
+
+.cliente{
+
+background-color: rgb(93, 144, 211);
+padding: 10px;
+color:rgb(144, 223, 179);
 border-radius:  3px;
 width: 20%; 
 font-size:3rem;
