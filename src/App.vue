@@ -71,7 +71,15 @@
 
           <anuncios/>
 
+           
           </div>
+
+          
+                <div class="col-12">
+
+                 <email/>
+
+                </div>
 
         </div>
     </div>
@@ -116,9 +124,11 @@ import Menuderecha from '@/views/Menuderecha.vue'
 import Menuizquerda from '@/views/Menuizquerda.vue'
 import Cliente from '@/components/Cliente.vue'
 import Anuncios from '@/components/Anuncios.vue'
+import Email from '@/components/Email.vue'
+
 export default {
   name:'App',
-  components: {Capitulos,Menuderecha,Menuizquerda,Cliente,Anuncios},
+  components: {Capitulos,Menuderecha,Menuizquerda,Cliente,Anuncios,Email},
  data() {
    return{
      titulo:'AnimeXD'
@@ -243,4 +253,14 @@ background-size: cover;
     margin-bottom: 13px;
 }
 
+
+input[type='text']{
+ 
+ border-radius: 25px;
+ font-size: 1.8rem;
+ width: 60%;
+ line-height: 3rem;
+
+
+}
 </style>

@@ -3,7 +3,7 @@
   <html>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <br>
-    <div class=" row ">
+    <div class=" row " style="margin-left: 15px;" >
        
 <div class="card" style="width: 27rem;    margin: 10px;">
   <img class="card-img-top desvanecer "  src="https://animeflv.net/uploads/animes/covers/3176.jpg" alt="Card image cap">

@@ -3,29 +3,61 @@
         <span> Andres Lopez</span>
 
         <div class="atributo">
-   <span>Nombre: {{ nombres }} {{ apellidos }}</span>
+                   <span>Nombre: {{ nombres }} {{ apellidos }}</span>
+            </div>
+
+
+<div class="row" style="margin-left: 1%;">
+
+                <div class=" col-4 diseño">
+
+    
+                    <span>Nombre: {{ concatenername }}</span>
+
+                    <img v-bind:src="fotoperfil" alt="" style="  width: 85%; border-radius: 51%;">
+                    <span>Edad: {{edad}} </span>
+
+                 <div class="container  ">
+
+                         <a class="tag" v-bind:href="biografia" target="_blnk"> Mas Información</a>
+
+                 </div>
+    
+                <div >
+                     <boletos/>
+                </div>
 
 
         </div>
-<div class="">
- <span>Nombre: {{ concatenername }}</span>
-</div>
 
-        <div class="atributo">
-            <span>Edad: {{edad}} </span>
+           <div class="col-8"> 
+
+                 <firma/>
+
+                </div>
+
+
+
         </div>
+           
     </div>
 
 </template>
 <script>
+import Boletos from '@/components/Boletos.vue'
+import Firma from '@/components/FirmaVue.vue'
 export default {
+
+components: {Boletos,Firma},
 
 
     data(){
         return {
         nombres: 'Andres',
         apellidos: 'Lopez',
-        fechadenacimiento: new Date(1999,4,26)
+        fechadenacimiento: new Date(1999,4,26),
+        fotoperfil:'https://scontent.fscl12-1.fna.fbcdn.net/v/t1.0-9/41454961_2292179297676857_3893470175462162432_n.jpg?_nc_cat=100&_nc_oc=AQnI-0gwIZtaPStFW6y9ZQkujKk2eCX1SPueleOYd95_uLRHulACOXu2lcDj_3KsepI&_nc_ht=scontent.fscl12-1.fna&oh=6769a5526d17887308ffc2abdf1a2aa7&oe=5DE0A2E2',
+        biografia:'https://www.facebook.com/'
         }
     },
     computed: {
@@ -50,7 +82,20 @@ concatenername(){
 
 <style >
 
+.tag{
+    text-decoration: none;
+    color: black;
+}
+
 .atributo{
 margin : 10px;
+}
+
+.diseño{
+
+    background-color: #5f3e3e;
+    width: 31%;
+    height: auto;
+    border-radius: 2%;
 }
 </style>
