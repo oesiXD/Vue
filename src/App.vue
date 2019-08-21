@@ -6,11 +6,11 @@
     <link href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
     <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
     <link rel="stylesheet" href="main.css">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" class="col-12">
 
 <div class="nav">
     <div class="container">
@@ -26,23 +26,27 @@
     </div>
 </div>
 
-<div class="jumbotron">
-    <div class="container">
-        <h1 style="color:Navy ">AnimeXD</h1>
+<div class=" jumbotron">
+    <div class="container" style="max-width: 80%;">
+        <h2 style="color:Navy ">AnimeXD</h2>
         <p>Lo mas nuevo y actualizado para Otakus.</p>
         <a href="#">Ver mas</a>
     </div>
 </div> 
 
-<div class="neighborhood-guides">
-    <div class="container">
+<div class="row">
+
+<div class="col-2 .visible-xs-*">
+<menuderecha/>
+</div>
+    <div class="col-8 texto">
         <h2 style="color:MidnightBlue "> Dato del Día</h2>
         <p> 
-Obsesión con la cultura japonesa hasta el punto de que la persona ve la cultura japonesa como superior a la suya 
-(y a todas las demás culturas). Obsesión con el anime, el manga y otras exportaciones de la cultura pop japonesa. 
-Intercalar palabras japonesas en su discurso cotidiano. Las palabras a menudo se usan incorrectamente. Gran parte del 
-conocimiento de la persona sobre Japón y el idioma se basa en las exportaciones de la cultura pop (anime y manga).</p>
-      <h2 style="color:MidnightBlue "> Animes nuevos </h2>
+           Obsesión con la cultura japonesa hasta el punto de que la persona ve la cultura japonesa como superior a la suya 
+           (y a todas las demás culturas). Obsesión con el anime, el manga y otras exportaciones de la cultura pop japonesa. 
+           Intercalar palabras japonesas en su discurso cotidiano. Las palabras a menudo se usan incorrectamente. Gran parte del 
+           conocimiento de la persona sobre Japón y el idioma se basa en las exportaciones de la cultura pop (anime y manga).</p>
+             <h2 style="color:MidnightBlue "> Animes nuevos </h2>
     
       
 
@@ -59,6 +63,10 @@ conocimiento de la persona sobre Japón y el idioma se basa en las exportaciones
            
         </div>
     </div>
+
+<div class="col-2">
+  <menuizquerda/>
+</div>
 </div>
 
 <div class="learn-more">
@@ -92,14 +100,24 @@ conocimiento de la persona sobre Japón y el idioma se basa en las exportaciones
 
 <script>
 import Capitulos from '@/views/Capitulos.vue'
-
+import Menuderecha from '@/views/Menuderecha.vue'
+import Menuizquerda from '@/views/Menuizquerda.vue'
 export default {
-  components:{Capitulos}
+  components:{Capitulos,Menuderecha,Menuizquerda}
 
 }
 </script>
 
 <style>
+
+
+h2{
+  font-size:0rem;
+}
+
+.texto{
+font-size:2rem;
+}
 
 html{
   font-size: 62.5% !important;
