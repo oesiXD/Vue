@@ -2,16 +2,8 @@
     <div class="seccion">
 
         <div class="atributo">
-         
-            
-               <input @keyup="actualizarEmail" type="text">
-        </div>
-
-       <div class="atributo email">
-            <span style="color:black;"> 
-           Email: {{email}}
-            </span>
-
+                 
+               <input v-model="email" @keyup.enter="actualizarEmail"  >
         </div>
 
     </div>
@@ -19,11 +11,13 @@
 
 <script>
 
+
 export default {
-    
+
+props:['emailResibido'],
   data(){
     return {
-    email: '',
+    email: ''
 
     }
 
@@ -31,12 +25,19 @@ export default {
   methods: {
       actualizarEmail(event) {
        
-       this.email = event.target.value
-
+           this.$emit('cambioEmail', this.email)
       }
 
+  },
+
+  watch: {
+    emailResibido(){
+        this.email = this.emailResibido
+    }
+   
 
   }
+      
 
 }
 </script>

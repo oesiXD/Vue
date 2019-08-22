@@ -65,7 +65,7 @@
 
         <div class="container cliente">
 
-        <cliente/>
+        <cliente :emails="email" @cambioEmail= "actualizaremail"/>
 
           <div class="col 1 anuncios"> 
 
@@ -75,10 +75,8 @@
           </div>
 
           
-                <div class="col-12">
-
-                 <email/>
-
+                <div>
+                <email  :emailResibido="email" @cambioEmail= "actualizaremail"/>
                 </div>
 
         </div>
@@ -131,10 +129,20 @@ export default {
   components: {Capitulos,Menuderecha,Menuizquerda,Cliente,Anuncios,Email},
  data() {
    return{
-     titulo:'AnimeXD'
+     titulo:'AnimeXD',
+      email:' '
    }
 
- } 
+ } ,
+ methods: {
+
+    actualizaremail(email){
+      
+      this.email = email
+
+        }
+
+ }
 
 }
 </script>
@@ -257,9 +265,10 @@ background-size: cover;
 input[type='text']{
  
  border-radius: 25px;
- font-size: 1.8rem;
+ font-size: 0.8rem;
  width: 60%;
- line-height: 3rem;
+ line-height: 0.5rem;
+ padding: 3px
 
 
 }
