@@ -117,7 +117,7 @@
 export default {
   data() {
     return {
-      boletos: 0,
+     
       comicion: 0,
       claseComision: 'neutro',
       pago: false,
@@ -136,7 +136,10 @@ export default {
       return this.boletos * 100
 
     },
+    boletos(){
 
+        return this.seleccionados.length
+    }
 
   },
   methods: {
@@ -156,7 +159,8 @@ export default {
     },
     reiniciar() {
 
-      this.boletos = 0
+      this.asientos.push(...this.seleccionados)
+      this.seleccionados=[]
       this.comicion = 0
       this.pago = false
     },
