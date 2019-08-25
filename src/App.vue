@@ -6,7 +6,7 @@
     <link href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
     <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
     <link rel="stylesheet" href="main.css">
-   
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
@@ -23,6 +23,10 @@
             <li><a href="#">Iniciar sesión</a></li>
             <li><a href="#">Ayuda</a></li>
         </ul>
+
+        <div> 
+          <button @click="componenteactual= item.nombre" class="menu" v-for="(item, index) in menu" :key="index">{{item.descripcion}}</button>
+        </div>
     </div>
 </div>
 
@@ -57,7 +61,7 @@
                  <span> Hola </span>
                  
                </div>
-               <capitulos/>
+            <component :is="componenteactual"></component>
 
             </div>
            
@@ -124,13 +128,29 @@ import Cliente from '@/components/Cliente.vue'
 import Anuncios from '@/components/Anuncios.vue'
 import Email from '@/components/Email.vue'
 
+import Home from '@/views/Home.vue'
+import Login from '@/views/usuario/Login.vue'
+import Perfil from '@/views/usuario/Perfil.vue'
+import Registro from '@/views/usuario/Registro.vue'
+
 export default {
   name:'App',
-  components: {Capitulos,Menuderecha,Menuizquerda,Cliente,Anuncios,Email},
+  components: {Capitulos,Menuderecha,Menuizquerda,Cliente,Anuncios,Email,Home,Login,Registro,Perfil},
  data() {
    return{
      titulo:'AnimeXD',
-      email:' '
+      email:' ',
+      componenteactual:'capitulos',
+
+      menu:[
+
+       {descripcion: 'Home', nombre:"home"} ,
+         {descripcion: 'Capitulos', nombre:"capitulos"} ,
+           {descripcion: 'Perfil', nombre:"perfil"} ,
+             {descripcion: 'Login', nombre:"login"} ,
+              {descripcion: 'Registro', nombre:"registro"} 
+      ]
+      
    }
 
  } ,
@@ -148,6 +168,16 @@ export default {
 </script>
 
 <style>
+
+.menu{
+  color: #dbdbdb;
+  background-color: transparent;
+  font-weight: normal;
+  font-size: 2.4;
+  margin: 3px 2px;
+border-radius:10px;
+outline:none;
+}
 .anuncios{
 margin: 10px;
 font-size: 2rem;
@@ -272,4 +302,9 @@ input[type='text']{
 
 
 }
+button{
+border-radius:10px;
+outline:none;
+}
+
 </style>

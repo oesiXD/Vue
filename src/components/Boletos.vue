@@ -3,9 +3,11 @@
   <div>
     <div class="section">
 <br>
+ <transition name="trancicion" mode="out-in">
+ 
       <div
         v-if="!pago && boletos == 0"
-        class="mensaje informacion"
+        :key="1"  class="mensaje informacion"
       >
 
         Selecciona al menos un boleto.
@@ -13,8 +15,8 @@
       </div>
 
       <div
-        v-else-if="!pago && boletos > 0 "
-        class="mensaje advertencia"
+        v-else-if="!pago && boletos > 0"
+       :key="2"    class="mensaje advertencia"
       >
 
         Recuerda completar tu compra.
@@ -23,11 +25,13 @@
 
       <div
         v-else-if="pago == true && boletos > 0"
-        class="mensaje exito"
+        :key="3" class="mensaje exito"
       >
 
         !!BIENVENIDO!!
       </div>
+
+ </transition>
 <br>
       <div class="asiento">
           <br>
@@ -37,7 +41,10 @@
         <div class="atributo"> 
 
 
-           <button class="buton" @click="seleccionar(asiento, index)" v-for="(asiento, index) in asientos" :key="index" >{{ asiento }} </button>
+         <transition-group name="botones"  style="outline:none" mode="out-in">
+         
+           <button class="buton" @click="seleccionar(asiento, index)" v-for="(asiento, index) in asientos" :key="asiento" >{{ asiento }} </button>
+         </transition-group>
 
         </div>
       </div>
@@ -52,7 +59,11 @@
       <div class="atributo"> 
 
 
-           <button class="butons" @click="remove(asiento, index)" v-for="(asiento, index) in seleccionados" :key="index" >{{ asiento }} </button>
+         <transition-group name="bajo" >
+
+             <button class="butons" @click="remove(asiento, index)" v-for="(asiento, index) in seleccionados" :key="asiento" >{{ asiento }} </button>
+         
+         </transition-group>
 
         </div>
     <div class="atributo">
@@ -74,16 +85,7 @@
 
       <span> Total: ${{total}} </span>
     </div>
-    <div class="atributo">
-      <button
-        class="buttons"
-        @click="actualizarCantidad(1)"
-      >+</button>
-      <button
-        class="buttons"
-        @click="actualizarCantidad(-1)"
-      >-</button>
-    </div>
+
 
     <div
       class="atributo"
@@ -107,14 +109,42 @@
   </div>
   <br>
 
+<transition name="trancicion" >
 
+   <tiquete v-if="pago">
+
+  <div slot="obra" style="    border-color: black; border-style: inset; margin: 2px; border-radius: 5px;">
+    <samp>El mandril</samp>
+  </div>
+
+  <div slot="horario">
+    <span>2019-05-24 22:45 PM</span>
+
+  </div>
+    <div slot="asientos">
+  <span class="butons2" v-for="(asiento,index) in seleccionados" :key="index"> {{asiento}}</span>
+ 
+  </div>
+
+  <div slot="total">
+   ${{total}} 
+
+  </div>
+
+  </tiquete> 
+
+</transition>
   </div>
 
   </html>
 </template>
 
 <script>
+import Tiquete from './Tiquete'
 export default {
+  components:{ Tiquete
+
+  },
   data() {
     return {
      
@@ -163,14 +193,17 @@ export default {
       this.seleccionados=[]
       this.comicion = 0
       this.pago = false
+      this.asientos.sort()
     },
     seleccionar(asiento, index){
+      if(this.pago){return}
         this.asientos.splice(index,1)
         this.seleccionados.push(asiento)
         this.asientos.sort()
 
     },
     remove(asiento, index){
+        if(this.pago){return}
         this.seleccionados.splice(index,1)
         this.asientos.push(asiento)
         this.asientos.sort()
@@ -213,6 +246,7 @@ export default {
 </script>
 
 <style>
+
 .boletos {
   font-size: 4rem;
   font-weight: bold;
@@ -240,6 +274,7 @@ export default {
   margin: 4px 12px;
   min-width: 30px;
   cursor: pointer;
+  
 }
 .butons{
       background-color:rgb(173, 230, 178);
@@ -251,6 +286,21 @@ export default {
   padding: 4px 12px;
   margin: 4px 12px;
   min-width: 30px;
+  cursor: pointer;
+  
+
+}
+.butons2{
+      background-color:rgb(173, 230, 178);
+  color: rgb(0, 0, 0);
+  font-size: 1.2rem;
+  
+  border-radius: 10px;
+  padding: 2px 12px;
+  margin: 4px 22px;
+  min-width: 30px;
+  margin-left: 5px;
+ 
   cursor: pointer;
 }
 .neutro {
@@ -286,5 +336,144 @@ export default {
     border-style: inset;
         margin: 2px;
     border-radius: 5px;
+}
+
+.trancicion-enter{
+opacity: 0;
+}
+.trancicion-enter-active{
+  transition: opacity 0.3s ease-out;
+  animation: animation-in 0.3s ease-out forwards ;
+
+}
+.trancicion-leave-active{
+  transition: opacity 0.2s ease-out;
+  animation: animation-out 0.2s ease-out forwards;
+  opacity: 0;
+
+}
+
+@keyframes animation-in {
+  
+  0%
+  {
+   transform: scaleX(0);
+  }
+  100%
+  {
+   transform: scaleX(1);
+
+  }
+}
+
+@keyframes animation-out {
+  
+  from
+  {
+   transform: scaleX(1);
+  }
+  to
+  {
+   transform: scaleX(0);
+
+  }
+}
+
+.botones-enter{
+opacity: 0;
+}
+.botones-enter-active{
+  transition: opacity 0.3s ease-out;
+  animation: boton-in 0.3s ease-out forwards ;
+
+}
+.botones-leave-active{
+  transition: opacity 0.2s ease-out;
+  animation: boton-out 0.2s ease-out forwards;
+  opacity: 0;
+
+}
+
+@keyframes boton-in{
+  
+  0%
+  {
+   transform: translateY(30px);
+  }
+    70%
+  {
+   transform: translateY(-10px);
+  }
+    90%
+  {
+   transform: translateY(5px);
+  }
+  100%
+  {
+   transform: translateY(0px);
+
+  }
+}
+
+@keyframes boton-out {
+  
+  from
+  {
+   transform: translateY(0px);
+  }
+  to
+  {
+   transform: translateY(30px);
+
+  }
+}
+
+.bajo-enter{
+opacity: 0;
+}
+.bajo-enter-active{
+  transition: opacity 0.3s ease-out;
+  animation: botons-in 0.3s ease-out forwards ;
+
+}
+.bajo-leave-active{
+  transition: opacity 0.2s ease-out;
+  animation: botons-out 0.2s ease-out forwards;
+  opacity: 0;
+
+}
+
+@keyframes botons-in{
+  
+  0%
+  {
+   transform: translateY(-30px);
+  }
+    70%
+  {
+   transform: translateY(10px);
+  }
+    90%
+  {
+   transform: translateY(-5px);
+  }
+  100%
+  {
+   transform: translateY(0px);
+
+  }
+}
+
+@keyframes botons-out {
+  
+  from
+  {
+   transform: translateY(0px);
+  }
+  to
+  {
+   transform: translateY(-30px);
+
+  }
 }
 </style>

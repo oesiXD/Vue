@@ -1,10 +1,14 @@
 <template>
     <div>
-        <span> 
+   <transition name="fade" mode="out-in">
+
+        <span :key="indice"> 
 
          {{ presentaciones[indice] }}
 
         </span>
+
+   </transition>
     </div>
 </template>
 <script>
@@ -30,47 +34,38 @@ mostraranuncio(){
 
     if(this.indice == this.presentaciones.length){
     this.indice = 0
-    this.$destroy()
+     // this.$destroy() es para eliminar una vez termine el  ciclo
     }
 }
     },
-    beforeCreate() {
 
-       console.log('beforeCreate') 
-
-    },
-    created() {
-        
-         console.log('created') 
-         
-    },
-    beforeMount() {
-
-         console.log('beforeMount') 
-    },
     mounted() {
 
-         console.log('mounted') 
-         setInterval(this.mostraranuncio,2000)
-        this.mostraranuncio()
-    },
-    beforeUpdate() {
-
-         console.log('beforeUpdate') 
-        
-    },
-    updated() {
-        
-         console.log('updated') 
-    },
-    beforeDestroy() {
-        
-         console.log('beforeDestroy') 
-    },
-    destroyed() {
-        
-         console.log('destroyed') 
+         console.log('') 
+         setInterval(this.mostraranuncio,3000)
+        this.mostraranuncio() 
     }
 } 
 
 </script>
+
+<style>
+
+.fade-enter{
+ opacity: 0;
+}
+
+
+.fade-enter-active{
+ transition: opacity 1s ease-out;
+}
+
+.fade-leave-active{
+ transition: opacity .6s ease-out;
+ opacity: 0;
+
+}
+
+
+</style>
+
