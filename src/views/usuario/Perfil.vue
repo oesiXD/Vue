@@ -1,12 +1,46 @@
 <template>
-    <html>
-   <div class="row">
-      
-       <div class="container">
-             <span>hola</span>
-            <img src="https://images6.alphacoders.com/727/727870.png" alt="" width="100%">
-       </div>
-    </div>
 
-    </html>
+<v-layout  align-start justify-center>
+    <v-card  >
+        <v-card-text >
+
+            <div class="ma-2" >
+            
+                Nombre y Apellidos
+            </div>
+            <img class="ma-2 redondo" :src="require('@/assets/perfilfijo.jpg')" alt="">
+
+          <div >
+          <v-layout >
+             Descripcion:
+          </v-layout>
+            
+
+
+          </div>
+
+         <v-layout justify-center >
+            <a class="ma-2 link" style="color: #F48FB1;" href="">Biografia</a>
+          </v-layout>
+            
+
+        </v-card-text>
+    </v-card>
+</v-layout>
+
 </template>
+
+<style>
+
+.redondo{
+    border-radius: 10px;
+    width: 200px;
+    height: 100%;
+}
+.link{
+ text-decoration: none;
+ font-size: 1rem;
+ 
+}
+    
+</style>
