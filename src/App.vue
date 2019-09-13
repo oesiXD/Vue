@@ -63,7 +63,7 @@
     </v-navigation-drawer>
 
     <v-card class="overflow-hidden">
-      <v-app-bar
+      <v-app-bar flat
         absolute
         color="#fcb69f"
         dark
@@ -195,7 +195,7 @@ import Perfil from '@/views/usuario/Perfil.vue'
 export default {
   components: { Home, Registro, Login, Perfil },
 
-  name: 'App',
+  name: 'Index',
   data: () => ({
 
     Titulo: 'animeXD',
