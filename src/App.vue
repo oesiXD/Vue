@@ -47,7 +47,7 @@
         </v-list-item>
       </v-list>
       <v-list>
-        <v-list-item @click="selecionado('login')">
+        <v-list-item v-if="!usuario" @click="selecionado('login')">
           <v-list-title-action>
             <v-icon class="ma-3">arrow_forward</v-icon>
           </v-list-title-action>
@@ -58,6 +58,19 @@
           </v-list-text-content>
 
         </v-list-item>
+
+            <v-list-item v-if="usuario " @click="salir">
+          <v-list-title-action>
+            <v-icon class="ma-3">close</v-icon>
+          </v-list-title-action>
+
+          <v-list-text-content>
+            <v-list-tile-title v-text="'salir'"></v-list-tile-title>
+
+          </v-list-text-content>
+
+        </v-list-item>
+
       </v-list>
 
     </v-navigation-drawer>
@@ -80,18 +93,7 @@
         >{{Titulo}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
-
-        <v-btn icon>
-          <v-icon>search</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>favorite</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
+    <span v-if="usuario">Bienvenido: {{usuario.nombres}}</span>
 
         <template v-slot:extension>
           <v-tabs
@@ -169,9 +171,23 @@
 
         </v-container>
 
+    <v-snackbar v-model="notificacion.visible" :color="notificacion.color" multi-line top  :timeout="6000" >
+      {{notificacion.mensaje }}
+      <v-btn  dark flat @click="ocultarNotificacion">
+        Cerrar
+      </v-btn>
+    </v-snackbar>
+
+
       </v-sheet>
 
     </v-card>
+
+  <v-text-field class="ma-3" @keyup.enter="enviarMensaje" label="Solo" single-line
+          solo
+          v-model="texto"
+          type="text"
+        ></v-text-field>
 
     <v-footer
       color="primary"
@@ -215,7 +231,8 @@ export default {
         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
       },
 
-    ]
+    ],
+    texto:''
 
 
   }
@@ -231,8 +248,37 @@ export default {
     selecionado(seleccion) {
       this.componenteactual = seleccion
       this.menu = false
+    },
+
+   
+    ocultarNotificacion() {
+      this.$store.commit('ocultarNotificacion')
+    },
+
+
+    salir(){
+      this.$store.state.usuario = null
+    },
+
+        enviarMensaje() {
+      if (this.texto.length > 0) {
+        this.$store.state.usuario.nombres = this.texto
+        this.texto = ''
+      }
     }
   },
+  computed:{
+
+    usuario(){
+
+      return this.$store.state.usuario
+    },
+     notificacion() {
+      return this.$store.state.notificacion
+    },
+
+  },
+
 
 
 

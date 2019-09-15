@@ -2,7 +2,35 @@
 
 <v-layout  align-start justify-center>
     <v-card  >
-        <v-card-text >
+        <v-card-text v-if="usuario">
+
+            <div class="ma-2" >
+            
+            {{usuario.nombres}} {{usuario.apellidos}}
+              
+            </div>
+            
+           <v-img class="ma-2 redondo" :src="usuario.fotoPerfil"> </v-img>
+
+          <div >
+          <v-layout >
+           {{usuario.descripcion}} :
+          </v-layout>
+            
+
+
+          </div>
+
+         <v-layout justify-center >
+            <a class="ma-2 link" style="color: #F48FB1;" :href="usuario.biografia">Biografia</a>
+          </v-layout>
+            
+
+        </v-card-text>
+
+
+
+         <v-card-text v-if="!usuario" >
 
             <div class="ma-2" >
             
@@ -26,7 +54,10 @@
 
         </v-card-text>
     </v-card>
+
+    
 </v-layout>
+
 
 </template>
 
@@ -44,3 +75,15 @@
 }
     
 </style>
+<script>
+export default {
+ 
+ 
+ computed:{
+  usuario(){
+    return  this.$store.state.usuario
+  }
+ }
+
+}
+</script>

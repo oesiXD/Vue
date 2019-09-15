@@ -156,7 +156,6 @@
                
                 color="secondary"
               >
-           
                 Registrarse
               </v-btn>
 
@@ -176,7 +175,8 @@
 
 </template>
 <script>
-import { required, email, minLength, maxLength, sameAs,alpha } from 'vuelidate/lib/validators'
+import{nombreCompuesto} from '@/utilidades/validaciones.js'
+import { required, email, minLength, maxLength, sameAs } from 'vuelidate/lib/validators'
 export default {
  name: 'Registro',
   data() {
@@ -231,7 +231,7 @@ export default {
       if (!this.$v.f2.nombres.required) { errores.push('Ingresa tus nombres.') }
       if (!this.$v.f2.nombres.minLength) { errores.push('Ingresa al menos 3 caracteres.') }
       if (!this.$v.f2.nombres.maxLength) { errores.push('Ingresa máximo 20 caracteres.') }
-      if (!this.$v.f2.nombres.alpha) { errores.push('Ingresa solo letras por favor.') }
+      if (!this.$v.f2.nombres.nombreCompuesto) { errores.push('Ingresa un nombre válido.') }
       return errores
     },
       erroresApellidos() {
@@ -240,7 +240,7 @@ export default {
       if (!this.$v.f2.apellidos.required) { errores.push('Ingresa tus apellidos.') }
       if (!this.$v.f2.apellidos.minLength) { errores.push('Ingresa al menos 3 caracteres.') }
       if (!this.$v.f2.apellidos.maxLength) { errores.push('Ingresa máximo 20 caracteres.') }
-      if (!this.$v.f2.apellidos.alpha) { errores.push('Ingresa solo letras por favor.') }
+      if (!this.$v.f2.apellidos.nombreCompuesto) { errores.push('Ingresa un apellido válido.') }
       return errores
     },
   },
@@ -324,13 +324,13 @@ export default {
       required,
         minLength: minLength(3),
         maxLength: maxLength(20),
-      alpha
+      nombreCompuesto
       },
       apellidos:{
        required,
         minLength: minLength(3),
         maxLength: maxLength(20),
-        alpha
+        nombreCompuesto
       }
 
     },

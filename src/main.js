@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
@@ -10,6 +11,7 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 
 new Vue({
+  store,
   vuetify,
   render: h => h(App)
 }).$mount('#app')
