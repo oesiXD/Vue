@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import sesion from './sesion'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    usuario: null,
-
     notificacion: {
       visible: false,
       mensaje: '',
@@ -20,9 +18,6 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    actualizarUsuario(state, usuario) {
-      state.usuario = usuario
-    },
     mostrarInformacion(state, mensaje) {
       state.notificacion.mensaje = mensaje
       state.notificacion.color = 'info'
@@ -56,30 +51,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    //se cambia el cerrarSecion por un salir 
-  cerrarSecion({commit}){
-  commit('actualizarUsuario',null)
-}
+
   },
   getters:{
-    saludo(state){
 
-      if(!state.usuario) {return ''}
 
-      
-      let vocal = state.usuario.sexo && state.usuario.sexo == 'F' ? 'a' : 'o'
 
-      return  `¡Bienvenid${vocal} ${state.usuario.nombres}!`
 
-    },
-
-    salir(state){
-
-      if(!state.usuario) {return ''}
-
-      return  `Esperamos que regreses pronto por aqui ${state.usuario.nombres}!`
-
-    }
-
+  },
+  modules:{
+    sesion
   }
 })

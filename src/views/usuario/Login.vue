@@ -66,6 +66,7 @@ import { mapMutations, mapGetters} from 'vuex'
       }
     },
     computed:{
+      //importante
 ...mapGetters(['saludo']),
      errorsEmail(){
        let errores = []
@@ -101,7 +102,9 @@ import { mapMutations, mapGetters} from 'vuex'
   }
     },
     methods:{
+//importante
 ...mapMutations(['mostrarOcupado','ocultarOcupado','actualizarUsuario','mostrarExito']),
+
       verificar(){
 
      
@@ -130,17 +133,9 @@ import { mapMutations, mapGetters} from 'vuex'
 
 
         setTimeout(()=>{
-
-          
-         // la funcion de este apartado es ocultar el mensaje de crga de antes 
-
            this.ocultarOcupado()
-
-          //  this.$store.state.usuario = usuario esto es una forma de hacerlo 
-
             this.actualizarUsuario (usuario)
-            this.mostrarExito (this.saludo)
-           
+            this.mostrarExito (this.saludo)  
         },2000 );
 
       }

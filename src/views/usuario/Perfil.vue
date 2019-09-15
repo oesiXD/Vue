@@ -76,13 +76,12 @@
     
 </style>
 <script>
+import {mapState} from 'vuex'
 export default {
  
  
  computed:{
-  usuario(){
-    return  this.$store.state.usuario
-  }
+ ...mapState('sesion',['usuario'])
  }
 
 }

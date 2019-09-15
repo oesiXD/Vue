@@ -294,13 +294,10 @@ export default {
     },
 
 
-//en cuanto a salir se debe realizar una modificacion en el store ya que como trabajaja con un apartado interno
-//   this.menu = false 
 ...mapActions(['cerrarSecion']),
 
     salir(){
-     this.$store.commit('mostrarExito', this.$store.getters.salir)
-     //   this.$store.dispatch('salir') deberia ir eso pero se remplaza por la cuestion de arriba 
+     this.$store.commit('mostrarInformacion', this.$store.getters.Despadida)
       this.cerrarSecion()
      
       this.menu = false
@@ -309,26 +306,9 @@ export default {
   },
   computed:{
 
-...mapState(['usuario','notificacion','ocupado'])
-
-/*
-AKI esto es nesesario si esque no se realixza el impor aunque el import simplifica mucho codigo
-
-    usuario(){
-
-      return this.$store.state.usuario
-    },
-     notificacion() {
-      return this.$store.state.notificacion
-    },
-    ocupado(){
-      return this.$store.state.ocupado
-    }
-*/
+...mapState(['notificacion','ocupado']),
+...mapState({usuario: state => state.sesion.usuario})
   },
-
-
-
 
 
 };
