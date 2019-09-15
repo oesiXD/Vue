@@ -152,14 +152,28 @@
                 Regresar
               </v-btn>
               <v-btn
-               @click="registrar"
+               @click="correcto"
                
                 color="secondary"
               >
                 Registrarse
               </v-btn>
+            
 
             </v-layout>
+               <v-container>
+               <p  style="color: green"  v-if="submitStatus == 'OK'">Datos Correctos
+
+              <video v-if="vide == 'true'"   autoplay="" name="media"><source src="https://external-preview.redd.it/sBPL3rSK_4BQ4uF7hmN-gJnXdeqIX5o1KNMHYzv70Gg.gif?format=mp4&amp;s=c9fb3c38a383fc4a88563b6f0855f584405f3645" type="video/mp4"></video>
+            </p>
+
+             <p style="color:red" class="typo__p" v-if="submitStatus == 'ERROR'">Por favor verifica los campos ingresados </p>
+             
+             <p style="color:#827717"  v-if="submitStatus == 'PENDING'">Enviando...
+
+                       <v-progress-circular indeterminate size="32"></v-progress-circular>
+             </p>
+   </v-container>
 
           </v-card-text>
           <v-card-text>
@@ -196,6 +210,8 @@ export default {
         nombres:'',
         apellidos:''
       },
+       vide: 'true',
+       submitStatus: null,
 
 
     }
@@ -294,6 +310,21 @@ export default {
 
       alert('Registrando...')
     },
+      correcto(){
+
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        this.submitStatus = 'PENDING' 
+          setTimeout(() => { this.submitStatus = 'OK' }, 3000)
+
+
+         this.submitStatus = 'PENDING' 
+          setTimeout(() => { this.vide = 'false' }, 12000)
+      }
+  }
+  
 
 
 

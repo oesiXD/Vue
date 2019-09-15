@@ -34,18 +34,7 @@
           </v-layout>
 
 
-            <p  style="color: green"  v-if="submitStatus == 'OK'">Datos Correctos
-
-              <video v-if="vide == 'true'"   autoplay="" name="media"><source src="https://external-preview.redd.it/sBPL3rSK_4BQ4uF7hmN-gJnXdeqIX5o1KNMHYzv70Gg.gif?format=mp4&amp;s=c9fb3c38a383fc4a88563b6f0855f584405f3645" type="video/mp4"></video>
-            </p>
-
-             <p style="color:red" class="typo__p" v-if="submitStatus == 'ERROR'">Por favor verifica los campos ingresados </p>
-             
-             <p style="color:#827717"  v-if="submitStatus == 'PENDING'">Enviando...
-
-                       <v-progress-circular indeterminate size="32"></v-progress-circular>
-             </p>
-            
+       
             
 
 
@@ -59,7 +48,7 @@
 <script>
 
 import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
-
+import { mapMutations, mapGetters} from 'vuex'
   export default {
    name: 'Login',
     data(){
@@ -77,7 +66,7 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
       }
     },
     computed:{
-
+...mapGetters(['saludo']),
      errorsEmail(){
        let errores = []
        if(!this.$v.formulario.email.$dirty) {return errores}
@@ -112,20 +101,14 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
   }
     },
     methods:{
-
+...mapMutations(['mostrarOcupado','ocultarOcupado','actualizarUsuario','mostrarExito']),
       verificar(){
 
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR'
-      } else {
-        this.submitStatus = 'PENDING' 
-          setTimeout(() => { this.submitStatus = 'OK' }, 3000)
-
-
-         this.submitStatus = 'PENDING' 
-          setTimeout(() => { this.vide = 'false' }, 12000)
-
+     
+      if (this.$v.formulario.$invalid) {
+        this.$v.formulario.$touch()
+       return
+      }
           let usuario ={
             userName: 'AndresXD',
             nombres: 'Andres',
@@ -136,24 +119,37 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
             fotoPerfil:'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/37783653_2245034152391372_5930065232532602880_n.jpg?_nc_cat=110&_nc_oc=AQkW3volK8IrAhTQvPyAz3B5MTsJVgqsekNJCifLRLwNhJfPu1ruEHHs6qUQx1ez220&_nc_ht=scontent.fscl3-1.fna&oh=532484e15167ec06a74500a709c81b91&oe=5DF3681E'
 
           }
-       //  this.$store.state.usuario = usuario esto es una forma de hacerlo 
 
-            this.$store.commit('actualizarUsuario',usuario)
+//esta es la variable con los datos a trabajar con ellos  
+           let ocupado = {
+             titulo:'Validando Credenciales',
+             mensaje:'Estamos validando tu informacion...'
+           }
+           //posteriormente se prosede  a utilizar el mutator para espesificar lo que le enviaremos 
+           this.mostrarOcupado (ocupado)
 
-            let vocal = usuario.sexo && usuario.sexo == 'F' ? 'a' : 'o'
 
-            let mensaje = `¡Bienvenid${vocal} ${usuario.nombres}!`
+        setTimeout(()=>{
 
-           this.$store.commit('mostrarExito', mensaje)
+          
+         // la funcion de este apartado es ocultar el mensaje de crga de antes 
+
+           this.ocultarOcupado()
+
+          //  this.$store.state.usuario = usuario esto es una forma de hacerlo 
+
+            this.actualizarUsuario (usuario)
+            this.mostrarExito (this.saludo)
+           
+        },2000 );
 
       }
 
-
-      },
-    
     }
+    
+  
 
-  }
+}
   
 
 </script>

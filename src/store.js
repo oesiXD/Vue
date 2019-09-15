@@ -12,6 +12,11 @@ export default new Vuex.Store({
       visible: false,
       mensaje: '',
       color: 'info'
+    },
+    ocupado:{
+      visible: false,
+      titulo:'',
+      mensaje:''
     }
   },
   mutations: {
@@ -40,13 +45,41 @@ export default new Vuex.Store({
     },
     ocultarNotificacion(state) {
       state.notificacion.visible = false
+    },
+    mostrarOcupado(state, ocupado){ 
+    state.ocupado.titulo = ocupado.titulo
+    state.ocupado.mensaje = ocupado.mensaje
+    state.ocupado.visible = true
+    },
+    ocultarOcupado(state){
+      state.ocupado.visible = false
     }
-
   },
   actions: {
-
+    //se cambia el cerrarSecion por un salir 
+  cerrarSecion({commit}){
+  commit('actualizarUsuario',null)
+}
   },
   getters:{
+    saludo(state){
+
+      if(!state.usuario) {return ''}
+
+      
+      let vocal = state.usuario.sexo && state.usuario.sexo == 'F' ? 'a' : 'o'
+
+      return  `¡Bienvenid${vocal} ${state.usuario.nombres}!`
+
+    },
+
+    salir(state){
+
+      if(!state.usuario) {return ''}
+
+      return  `Esperamos que regreses pronto por aqui ${state.usuario.nombres}!`
+
+    }
 
   }
 })

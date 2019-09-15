@@ -34,7 +34,7 @@
         </v-list-item>
       </v-list>
       <v-list>
-        <v-list-item @click="selecionado('registro')">
+        <v-list-item v-if="!usuario" @click="selecionado('registro')">
           <v-list-title-action>
             <v-icon class="ma-3">contact_mail</v-icon>
           </v-list-title-action>
@@ -59,7 +59,7 @@
 
         </v-list-item>
 
-            <v-list-item v-if="usuario " @click="salir">
+            <v-list-item v-if="usuario" @click="salir">
           <v-list-title-action>
             <v-icon class="ma-3">close</v-icon>
           </v-list-title-action>
@@ -93,7 +93,7 @@
         >{{Titulo}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
-    <span v-if="usuario">Bienvenido: {{usuario.nombres}}</span>
+    <span v-if="usuario">{{usuario.userName}}</span>
 
         <template v-slot:extension>
           <v-tabs
@@ -178,6 +178,23 @@
       </v-btn>
     </v-snackbar>
 
+    <v-dialog v-model="ocupado.visible" max-width="400" persistent="">
+      <v-card>
+
+        <v-toolbar color="secondary" dark card>
+          
+           <v-toolbar-title class="subheading"> {{ocupado.titulo}} </v-toolbar-title>
+
+        </v-toolbar>
+           <v-card-text>
+             {{ocupado.mensaje}}
+            </v-card-text>
+            <v-card-text>
+             <v-progress-linear :indeterminate="true" color="primary"></v-progress-linear>
+            </v-card-text>
+      </v-card>
+    </v-dialog>
+
 
       </v-sheet>
 
@@ -208,6 +225,9 @@ import Registro from '@/views/usuario/Registro.vue'
 import Login from '@/views/usuario/Login.vue'
 import Perfil from '@/views/usuario/Perfil.vue'
 
+// este import cumple la funcion de reducir codico en el apartdaodo que dise aqui 
+import {mapState, mapMutations, mapActions} from 'vuex'
+// mapMutations, mapActions van en  methods  y mapState y mapGetters en computed
 export default {
   components: { Home, Registro, Login, Perfil },
 
@@ -238,7 +258,15 @@ export default {
   }
   ),
   methods: {
+...mapMutations(['ocultarNotificacion']),
 
+   /*
+   ese seria el codigo en caso de no implementar el import ni lo que esta arriba 
+
+    ocultarNotificacion() {
+      this.$store.commit('ocultarNotificacion')
+    },
+*/
     menu1() {
       this.componenteactual = 'perfil'
     },
@@ -250,24 +278,41 @@ export default {
       this.menu = false
     },
 
-   
-    ocultarNotificacion() {
-      this.$store.commit('ocultarNotificacion')
-    },
+       //esta es una forma de salir creaada por mi que es algo chafa 
+       // salir(){
+       // this.$store.state.usuario = null
+       // },
 
 
-    salir(){
-      this.$store.state.usuario = null
-    },
 
+// enviarMensaje es un metodo para probar el guardado de los datos y remplazar el nombre dell user
         enviarMensaje() {
       if (this.texto.length > 0) {
         this.$store.state.usuario.nombres = this.texto
         this.texto = ''
       }
+    },
+
+
+//en cuanto a salir se debe realizar una modificacion en el store ya que como trabajaja con un apartado interno
+//   this.menu = false 
+...mapActions(['cerrarSecion']),
+
+    salir(){
+     this.$store.commit('mostrarExito', this.$store.getters.salir)
+     //   this.$store.dispatch('salir') deberia ir eso pero se remplaza por la cuestion de arriba 
+      this.cerrarSecion()
+     
+      this.menu = false
+     
     }
   },
   computed:{
+
+...mapState(['usuario','notificacion','ocupado'])
+
+/*
+AKI esto es nesesario si esque no se realixza el impor aunque el import simplifica mucho codigo
 
     usuario(){
 
@@ -276,7 +321,10 @@ export default {
      notificacion() {
       return this.$store.state.notificacion
     },
-
+    ocupado(){
+      return this.$store.state.ocupado
+    }
+*/
   },
 
 
