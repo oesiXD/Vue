@@ -40,6 +40,11 @@
 
 
         </v-card-text>
+        <v-card-actions>
+          
+             <v-btn falt color="secondary" :to="{name:'registo'}" class="overline">¡Aun no tienes cuenta que esperas! Registrate. </v-btn>
+
+        </v-card-actions>
 
       </v-card>
 
@@ -136,6 +141,7 @@ import { mapMutations, mapGetters} from 'vuex'
            this.ocultarOcupado()
             this.actualizarUsuario (usuario)
             this.mostrarExito (this.saludo)  
+            this.$router.push({name:'home'})
         },2000 );
 
       }

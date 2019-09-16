@@ -7,7 +7,7 @@
       temporary
     >
       <v-list>
-        <v-list-item @click="selecionado('home')">
+        <v-list-item :to="{name: '/'}">
           <v-list-title-action>
             <v-icon class="ma-3">home</v-icon>
           </v-list-title-action>
@@ -21,7 +21,7 @@
       </v-list>
 
       <v-list>
-        <v-list-item @click="selecionado('perfil')">
+        <v-list-item :to="{name: 'perfil'}">
           <v-list-title-action>
             <v-icon class="ma-3">account_circle</v-icon>
           </v-list-title-action>
@@ -33,21 +33,9 @@
 
         </v-list-item>
       </v-list>
+  
       <v-list>
-        <v-list-item v-if="!usuario" @click="selecionado('registro')">
-          <v-list-title-action>
-            <v-icon class="ma-3">contact_mail</v-icon>
-          </v-list-title-action>
-
-          <v-list-text-content>
-            <v-list-tile-title v-text="'Registro'"></v-list-tile-title>
-
-          </v-list-text-content>
-
-        </v-list-item>
-      </v-list>
-      <v-list>
-        <v-list-item v-if="!usuario" @click="selecionado('login')">
+        <v-list-item v-if="!usuario" :to="{name: 'login'}">
           <v-list-title-action>
             <v-icon class="ma-3">arrow_forward</v-icon>
           </v-list-title-action>
@@ -75,25 +63,30 @@
 
     </v-navigation-drawer>
 
-    <v-card class="overflow-hidden">
-      <v-app-bar flat
+    <v-card  class="overflow-hidden">
+      <v-app-bar 
         absolute
         color="#fcb69f"
         dark
         shrink-on-scroll
         src="https://picsum.photos/1920/1080?random"
         scroll-target="#scrolling-techniques-2"
+          
       >
 
         <v-app-bar-nav-icon @click="menu =!menu"></v-app-bar-nav-icon>
 
         <v-toolbar-title
-          @click="componenteactual = 'home'"
+          @click="$router.push({name:'home'})"
           class="titulo"
         >{{Titulo}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
-    <span v-if="usuario">{{usuario.userName}}</span>
+
+<router-link class="nombre" :to="{name: 'perfil'}">
+
+      <span v-if="usuario">{{usuario.userName}}</span>
+</router-link>
 
         <template v-slot:extension>
           <v-tabs
@@ -165,7 +158,8 @@
 
           <v-slide-y-transition mode="out-in">
             
-            <component :is="componenteactual"></component>
+         <router-view></router-view>
+
 
           </v-slide-y-transition>
 
@@ -235,7 +229,6 @@ export default {
   data: () => ({
 
     Titulo: 'animeXD',
-    componenteactual: 'home',
     menu: false,
     items: [
       {
@@ -273,16 +266,10 @@ export default {
     menu2() {
       this.componenteactual = 'home'
     },
-    selecionado(seleccion) {
-      this.componenteactual = seleccion
-      this.menu = false
-    },
-
        //esta es una forma de salir creaada por mi que es algo chafa 
        // salir(){
        // this.$store.state.usuario = null
        // },
-
 
 
 // enviarMensaje es un metodo para probar el guardado de los datos y remplazar el nombre dell user
@@ -299,9 +286,8 @@ export default {
     salir(){
      this.$store.commit('mostrarInformacion', this.$store.getters.Despadida)
       this.cerrarSecion()
-     
       this.menu = false
-     
+      this.$router.push({name:'login'})
     }
   },
   computed:{
@@ -320,4 +306,10 @@ export default {
 .titulo {
   cursor: pointer;
 }
+.nombre{
+  color: beige;
+  text-decoration: none;
+  font-size: 1.6rem;
+}
+
 </style>

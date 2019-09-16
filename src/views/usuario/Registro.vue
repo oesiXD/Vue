@@ -36,6 +36,11 @@
               </v-btn>
             </v-layout>
           </v-card-text>
+            <v-card-actions>
+          
+             <v-btn falt color="secondary" :to="{name:'login'}" class="overline">¡tienes cuenta que esperas! Ingresa. </v-btn>
+
+        </v-card-actions>
 
         </v-card>
 
@@ -66,6 +71,7 @@
             <v-text-field @keyup.enter="verificar" :error-messages="erroresApellidos" @blur="$v.f2.apellidos.$touch()"  v-model="f2.apellidos" label="Apellido"></v-text-field>
 
           </v-card-text>
+          
           <v-card-text>
             <v-layout
               justify-end
@@ -86,6 +92,7 @@
 
             </v-layout>
           </v-card-text>
+              
 
         </v-card>
 
@@ -196,7 +203,7 @@ export default {
   data() {
     return {
 
-      vista: 3,
+      vista: 1,
       fechaNacimiento: null,
       show2: false,
       fechaMaxima:null,
