@@ -33,6 +33,21 @@
 
         </v-list-item>
       </v-list>
+
+      
+      <v-list>
+        <v-list-item :to="{name: 'extra'}">
+          <v-list-title-action>
+            <v-icon class="ma-3">call_split</v-icon>
+          </v-list-title-action>
+
+          <v-list-text-content>
+            <v-list-tile-title v-text="'Extra'"></v-list-tile-title>
+
+          </v-list-text-content>
+
+        </v-list-item>
+      </v-list>
   
       <v-list>
         <v-list-item v-if="!usuario" :to="{name: 'login'}">
@@ -139,16 +154,6 @@
           style="max-width: 900px"
         >
 
-          <v-carousel>
-            <v-carousel-item
-              v-for="(item,i) in items"
-              :key="i"
-              :src="item.src"
-              reverse-transition="fade-transition"
-              transition="fade-transition"
-            ></v-carousel-item>
-          </v-carousel>
-
         </v-container>
 
         <v-container
@@ -194,11 +199,6 @@
 
     </v-card>
 
-  <v-text-field class="ma-3" @keyup.enter="enviarMensaje" label="Solo" single-line
-          solo
-          v-model="texto"
-          type="text"
-        ></v-text-field>
 
     <v-footer
       color="primary"
@@ -217,35 +217,20 @@
 import Home from '@/views/Home.vue'
 import Registro from '@/views/usuario/Registro.vue'
 import Login from '@/views/usuario/Login.vue'
+import extra from '@/views/usuario/extra.vue'
 import Perfil from '@/views/usuario/Perfil.vue'
 
 // este import cumple la funcion de reducir codico en el apartdaodo que dise aqui 
 import {mapState, mapMutations, mapActions} from 'vuex'
 // mapMutations, mapActions van en  methods  y mapState y mapGetters en computed
 export default {
-  components: { Home, Registro, Login, Perfil },
+  components: { Home, Registro, Login, Perfil,extra },
 
   name: 'Index',
   data: () => ({
 
     Titulo: 'animeXD',
     menu: false,
-    items: [
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-      },
-
-    ],
-    texto:''
 
 
   }
@@ -266,19 +251,7 @@ export default {
     menu2() {
       this.componenteactual = 'home'
     },
-       //esta es una forma de salir creaada por mi que es algo chafa 
-       // salir(){
-       // this.$store.state.usuario = null
-       // },
 
-
-// enviarMensaje es un metodo para probar el guardado de los datos y remplazar el nombre dell user
-        enviarMensaje() {
-      if (this.texto.length > 0) {
-        this.$store.state.usuario.nombres = this.texto
-        this.texto = ''
-      }
-    },
 
 
 ...mapActions(['cerrarSecion']),
@@ -301,7 +274,7 @@ export default {
 </script>
 <style >
 .tope {
-  margin-top: 10.74%;
+  margin-top: 3.74%;
 }
 .titulo {
   cursor: pointer;

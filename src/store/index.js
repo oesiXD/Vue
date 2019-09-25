@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import sesion from './sesion'
+import capitulos from './capitulos'
 
 Vue.use(Vuex)
 
@@ -60,6 +61,7 @@ export default new Vuex.Store({
 
   },
   modules:{
-    sesion
+    sesion,
+    capitulos
   }
 })

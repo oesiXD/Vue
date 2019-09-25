@@ -81,7 +81,7 @@ export default {
  
  
  computed:{
- ...mapState('sesion',['usuario'])
+...mapState({usuario: state => state.sesion.usuario})
  }
 
 }
